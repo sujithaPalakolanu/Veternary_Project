@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="228ea5dd28c44294948a1d8057fcab04" Name="Diagram1">
+        <EntityTypeShape EntityType="VetDBModel.Communication_Address" Width="1.5" PointX="1.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VetDBModel.Owner" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VetDBModel.Pet_Details" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VetDBModel.Pet_Owner" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VetDBModel.Treatement_Details" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="VetDBModel.FK__Owner__AddressID__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="VetDBModel.FK__Pet_Owner__Owner__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="VetDBModel.FK__Pet_Owner__PetID__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="VetDBModel.FK__Treatemen__PetID__32E0915F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

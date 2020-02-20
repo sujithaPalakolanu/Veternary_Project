@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VetDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Communication_Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressLane1" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AdressLane2" Type="varchar" MaxLength="20" />
+          <Property Name="City" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AddressID" Type="int" />
+        </EntityType>
+        <EntityType Name="Pet_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BreedName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Pedegree" Type="bit" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pet_Owner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerID" Type="int" />
+          <Property Name="PetID" Type="int" />
+        </EntityType>
+        <EntityType Name="Treatement_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PetID" Type="int" Nullable="false" />
+          <Property Name="TreatementDate" Type="date" Nullable="false" />
+          <Property Name="TreatementCost" Type="money" Nullable="false" />
+          <Property Name="Notes" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Owner__AddressID__29572725">
+          <End Role="Communication_Address" Type="Self.Communication_Address" Multiplicity="0..1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communication_Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet_Owner__Owner__2F10007B">
+          <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+          <End Role="Pet_Owner" Type="Self.Pet_Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pet_Owner">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet_Owner__PetID__300424B4">
+          <End Role="Pet_Details" Type="Self.Pet_Details" Multiplicity="0..1" />
+          <End Role="Pet_Owner" Type="Self.Pet_Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pet_Owner">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Treatemen__PetID__32E0915F">
+          <End Role="Pet_Details" Type="Self.Pet_Details" Multiplicity="1" />
+          <End Role="Treatement_Details" Type="Self.Treatement_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Treatement_Details">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VetDBModelStoreContainer">
+          <EntitySet Name="Communication_Address" EntityType="Self.Communication_Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet_Details" EntityType="Self.Pet_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet_Owner" EntityType="Self.Pet_Owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Treatement_Details" EntityType="Self.Treatement_Details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Owner__AddressID__29572725" Association="Self.FK__Owner__AddressID__29572725">
+            <End Role="Communication_Address" EntitySet="Communication_Address" />
+            <End Role="Owner" EntitySet="Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet_Owner__Owner__2F10007B" Association="Self.FK__Pet_Owner__Owner__2F10007B">
+            <End Role="Owner" EntitySet="Owner" />
+            <End Role="Pet_Owner" EntitySet="Pet_Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet_Owner__PetID__300424B4" Association="Self.FK__Pet_Owner__PetID__300424B4">
+            <End Role="Pet_Details" EntitySet="Pet_Details" />
+            <End Role="Pet_Owner" EntitySet="Pet_Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Treatemen__PetID__32E0915F" Association="Self.FK__Treatemen__PetID__32E0915F">
+            <End Role="Pet_Details" EntitySet="Pet_Details" />
+            <End Role="Treatement_Details" EntitySet="Treatement_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VetDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Communication_Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressLane1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdressLane2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Owners" Relationship="Self.FK__Owner__AddressID__29572725" FromRole="Communication_Address" ToRole="Owner" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" />
+          <NavigationProperty Name="Communication_Address" Relationship="Self.FK__Owner__AddressID__29572725" FromRole="Owner" ToRole="Communication_Address" />
+          <NavigationProperty Name="Pet_Owner" Relationship="Self.FK__Pet_Owner__Owner__2F10007B" FromRole="Owner" ToRole="Pet_Owner" />
+        </EntityType>
+        <EntityType Name="Pet_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BreedName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pedegree" Type="Boolean" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Pet_Owner" Relationship="Self.FK__Pet_Owner__PetID__300424B4" FromRole="Pet_Details" ToRole="Pet_Owner" />
+          <NavigationProperty Name="Treatement_Details" Relationship="Self.FK__Treatemen__PetID__32E0915F" FromRole="Pet_Details" ToRole="Treatement_Details" />
+        </EntityType>
+        <EntityType Name="Pet_Owner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerID" Type="Int32" />
+          <Property Name="PetID" Type="Int32" />
+          <NavigationProperty Name="Owner" Relationship="Self.FK__Pet_Owner__Owner__2F10007B" FromRole="Pet_Owner" ToRole="Owner" />
+          <NavigationProperty Name="Pet_Details" Relationship="Self.FK__Pet_Owner__PetID__300424B4" FromRole="Pet_Owner" ToRole="Pet_Details" />
+        </EntityType>
+        <EntityType Name="Treatement_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PetID" Type="Int32" Nullable="false" />
+          <Property Name="TreatementDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TreatementCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pet_Details" Relationship="Self.FK__Treatemen__PetID__32E0915F" FromRole="Treatement_Details" ToRole="Pet_Details" />
+        </EntityType>
+        <Association Name="FK__Owner__AddressID__29572725">
+          <End Role="Communication_Address" Type="Self.Communication_Address" Multiplicity="0..1" />
+          <End Role="Owner" Type="Self.Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Communication_Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Owner">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet_Owner__Owner__2F10007B">
+          <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+          <End Role="Pet_Owner" Type="Self.Pet_Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pet_Owner">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet_Owner__PetID__300424B4">
+          <End Role="Pet_Details" Type="Self.Pet_Details" Multiplicity="0..1" />
+          <End Role="Pet_Owner" Type="Self.Pet_Owner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pet_Owner">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Treatemen__PetID__32E0915F">
+          <End Role="Pet_Details" Type="Self.Pet_Details" Multiplicity="1" />
+          <End Role="Treatement_Details" Type="Self.Treatement_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet_Details">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Treatement_Details">
+              <PropertyRef Name="PetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VetDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Communication_Address" EntityType="Self.Communication_Address" />
+          <EntitySet Name="Owners" EntityType="Self.Owner" />
+          <EntitySet Name="Pet_Details" EntityType="Self.Pet_Details" />
+          <EntitySet Name="Pet_Owner" EntityType="Self.Pet_Owner" />
+          <EntitySet Name="Treatement_Details" EntityType="Self.Treatement_Details" />
+          <AssociationSet Name="FK__Owner__AddressID__29572725" Association="Self.FK__Owner__AddressID__29572725">
+            <End Role="Communication_Address" EntitySet="Communication_Address" />
+            <End Role="Owner" EntitySet="Owners" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet_Owner__Owner__2F10007B" Association="Self.FK__Pet_Owner__Owner__2F10007B">
+            <End Role="Owner" EntitySet="Owners" />
+            <End Role="Pet_Owner" EntitySet="Pet_Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet_Owner__PetID__300424B4" Association="Self.FK__Pet_Owner__PetID__300424B4">
+            <End Role="Pet_Details" EntitySet="Pet_Details" />
+            <End Role="Pet_Owner" EntitySet="Pet_Owner" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Treatemen__PetID__32E0915F" Association="Self.FK__Treatemen__PetID__32E0915F">
+            <End Role="Pet_Details" EntitySet="Pet_Details" />
+            <End Role="Treatement_Details" EntitySet="Treatement_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VetDBModelStoreContainer" CdmEntityContainer="VetDBEntities1">
+          <EntitySetMapping Name="Communication_Address">
+            <EntityTypeMapping TypeName="VetDBModel.Communication_Address">
+              <MappingFragment StoreEntitySet="Communication_Address">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AddressLane1" ColumnName="AddressLane1" />
+                <ScalarProperty Name="AdressLane2" ColumnName="AdressLane2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owners">
+            <EntityTypeMapping TypeName="VetDBModel.Owner">
+              <MappingFragment StoreEntitySet="Owner">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pet_Details">
+            <EntityTypeMapping TypeName="VetDBModel.Pet_Details">
+              <MappingFragment StoreEntitySet="Pet_Details">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="BreedName" ColumnName="BreedName" />
+                <ScalarProperty Name="Pedegree" ColumnName="Pedegree" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pet_Owner">
+            <EntityTypeMapping TypeName="VetDBModel.Pet_Owner">
+              <MappingFragment StoreEntitySet="Pet_Owner">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Treatement_Details">
+            <EntityTypeMapping TypeName="VetDBModel.Treatement_Details">
+              <MappingFragment StoreEntitySet="Treatement_Details">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+                <ScalarProperty Name="TreatementDate" ColumnName="TreatementDate" />
+                <ScalarProperty Name="TreatementCost" ColumnName="TreatementCost" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
